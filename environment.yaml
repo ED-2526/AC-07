@@ -1,0 +1,37 @@
+name: ac-project-env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  # --- Base & Data Manipulation ---
+  - python=3.10
+  - pandas
+  - numpy
+  - scipy
+  - scikit-learn
+  
+  # --- Data Visualization ---
+  - matplotlib
+  - seaborn
+  - plotly
+  
+  # --- File Formats (Parquet/Feather support) ---
+  - pyarrow
+  - python-fastparquet
+
+  # --- Jupyter & VSCode Support ---
+  - jupyter
+  - ipykernel
+  - ipywidgets
+
+  # --- Utilities ---
+  - tqdm  # Barres de progrés (molt útil per processar milions de files)
+  - pip
+
+  # --- Pip specific packages ---
+  - pip:
+    - catboost        # Model utilitzat al notebook de referència
+    - implicit        # Per a l'algoritme ALS (Alternating Least Squares)
+    - faiss-cpu       # Cerca de similitud ràpida (necessari per a vectors d'usuari)
+    - wandb           # Weights & Biases (Requisit del curs per loguejar experiments)
+    - feather-format  # Per llegir fitxers .feather si cal
