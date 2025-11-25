@@ -5,8 +5,8 @@ import numpy as np
 import pyarrow.feather as feather
 
 # CONFIGURACIÓ
-FILE_PATH = r'data\raw\dataset_full.feather' 
-SAMPLE_SIZE = 25000000  # Número de files a carregar en forma de mostra
+FILE_PATH = r'AC-07\data\raw\dataset_full.feather' 
+SAMPLE_SIZE = 100000000  # Número de files a carregar en forma de mostra
 
 def carregar_mostra(path, n_rows):
     """Carrega una mostra de les dades en pandas."""
@@ -126,7 +126,7 @@ def agregar_per_usuari(df):
     return df_users
 
 # --- EXECUTAR ---
-if __name__ == "__main__":
+def main():
     # 1. Carregar
     df = carregar_mostra(FILE_PATH, SAMPLE_SIZE)
     print(df.head())
@@ -150,4 +150,6 @@ if __name__ == "__main__":
         print(df_final.info())
         
         # Opcional: Guardar la mostra neta
-        # df_final.to_csv('sample_train_data.csv', index=False)
+        df_final.to_csv('sample_train_data.csv', index=False)
+
+main()
