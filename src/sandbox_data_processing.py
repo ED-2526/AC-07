@@ -5,8 +5,8 @@ import numpy as np
 import pyarrow.feather as feather
 
 # CONFIGURACIÓ
-FILE_PATH = r'AC-07\data\raw\dataset_full.feather' 
-SAMPLE_SIZE = 100000000  # Número de files a carregar en forma de mostra
+FILE_PATH = r'data\raw\dataset_full.feather' 
+SAMPLE_SIZE = 322000000  # Número de files a carregar en forma de mostra
 
 def carregar_mostra(path, n_rows):
     """Carrega una mostra de les dades en pandas."""
@@ -51,6 +51,7 @@ def tractar_nuls_i_preus(df):
     
     nuls_ara = df['price'].isnull().sum()
     print(f"Nuls a 'price' corregits: {nuls_abans} -> {nuls_ara}")
+
     
     return df
 
@@ -126,7 +127,7 @@ def agregar_per_usuari(df):
     return df_users
 
 # --- EXECUTAR ---
-def main():
+if __name__ == "__main__":
     # 1. Carregar
     df = carregar_mostra(FILE_PATH, SAMPLE_SIZE)
     print(df.head())
@@ -139,8 +140,9 @@ def main():
         # 1. Netejar dades
         df =netejar_dades(df)
         # 2. EDA sobre els logs
-        analisi_exploratori(df)
-        
+        print("\n--- ANÀLISI EXPLORATORI SALTAT ---")
+        #analisi_exploratori(df)
+        df = tractar_nuls_i_preus(df)
         # 3. Crear dataset d'entrenament (agregat)
         df_final = agregar_per_usuari(df)
         
@@ -151,5 +153,3 @@ def main():
         
         # Opcional: Guardar la mostra neta
         df_final.to_csv('sample_train_data.csv', index=False)
-
-main()
