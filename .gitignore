@@ -1,0 +1,14 @@
+# Ignorar dades
+data/
+*.feather
+
+# Ignorar fitxers de sistema i entorns
+__pycache__/
+.ipynb_checkpoints/
+.env
+.vscode/
+*.pyc
+
+# Ignorar models pesats
+models/*.bin
+models/*.cbm
