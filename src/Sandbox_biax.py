@@ -6,7 +6,7 @@ import pyarrow.feather as feather
 
 # CONFIGURACIÓ
 FILE_PATH = r'data\raw\target_train.feather' 
-SAMPLE_SIZE = 25000000  # Número de files a carregar en forma de mostra
+SAMPLE_SIZE = 322000000  # Número de files a carregar en forma de mostra
 
 def carregar_mostra(path, n_rows):
     """Carrega una mostra de les dades en pandas."""
