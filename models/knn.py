@@ -160,7 +160,7 @@ print("MAE:", round(mae, 2))
 # 8. Evaluar diversos valores de K
 # ==========================================================
 
-k_values = range(1, 31)   # probamos K de 1 a 30
+k_values = range(1,500, 25)
 accuracy_scores = []
 mae_scores = []
 
