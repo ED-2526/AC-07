@@ -26,18 +26,52 @@ def tokenizer_urls(text):
 def entrenar_i_avaluar(model, X_train, y_train, X_test, y_test, model_name):
     print(f"🚀 Entrenant {model_name}...")
     model.fit(X_train, y_train)
+
+    # Predicció amb el train
+    y_pred_train = model.predict(X_train)
     
     # Predicció
-    y_pred = model.predict(X_test)
+    y_pred_test = model.predict(X_test)
     
-    # Mètriques (Regressió)
-    mae = mean_absolute_error(y_test, y_pred)
-    mse = mean_squared_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
+    #Mètriques del train (Regressió)
+    mae_train = mean_absolute_error(y_train, y_pred_train)
+    mse_train = mean_squared_error(y_train, y_pred_train)
+    r2_train = r2_score(y_train, y_pred_train)
+
+    # Mètriques del test (Regressió)
+    mae = mean_absolute_error(y_test, y_pred_test)
+    mse = mean_squared_error(y_test, y_pred_test)
+    r2 = r2_score(y_test, y_pred_test)
+
+    print(f"   🎯 {model_name} Resultats del train:")
+    print(f"      Error Mitjà Absolut (MAE): {mae_train:.2f} anys") 
+    print(f"      R2 Score (Explicabilitat): {r2_train:.4f}")
     
-    print(f"   🎯 {model_name} Resultats:")
+    print(f"   🎯 {model_name} Resultats del test:")
     print(f"      Error Mitjà Absolut (MAE): {mae:.2f} anys") 
     print(f"      R2 Score (Explicabilitat): {r2:.4f}")
+
+    #Comparació entre train i test
+    print("      Comparació entre train i test amb mse:")
+    print(f"      Error Mitjà Quadrat en train (MSE): {mse_train:.2f}")
+    print(f"      Error Mitjà Quadrat en test (MSE): {mse:.2f}")
+
+    ratio = mse/mse_train
+    print(f"      Relació entre MSE de train i test: {ratio:.2f}")
+
+    if ratio <1.0:
+        print(f"      Ratio inferior a 1 per atzar o raons de split")
+    elif ratio <= 1.3:
+        print(f"      Ratio entre 1 i 1,3. Overfitting inexistent o molt lleu")
+    elif 1.3< ratio <= 2.0:
+        print(f"      Ratio entre 1,3 i 2. Overfitting moderat")
+    elif ratio > 2.0:
+        print(f"      Ratio superior a 2. Overfitting greu")
+
+
+
+
+
     
     # Log a WandB
     if wandb.run is not None:
